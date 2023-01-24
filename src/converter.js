@@ -13,6 +13,8 @@ const JSON_SCHEMA_TO_BIGQUERY_TYPE_DICT = {
   time: 'TIME',
 }
 
+const DT_FORMATS = ['date-time', 'date', 'time']
+
 const OFS = ['allOf', 'anyOf', 'oneOf']
 
 const BIGQUERY_FIELD_NAME_REGEXP = /^[a-z_]([a-z0-9_]+|)$/i
@@ -178,10 +180,14 @@ converter._object = (name, node, mode) => {
         node
       )
     }
-    if (!_.isPlainObject(node.properties)) {
+    const format = node.format
+    if (!_.isPlainObject(node.properties) && !DT_FORMATS.includes(format)) {
       throw new SchemaError('No properties defined for object', node)
     }
-    if (Object.keys(node.properties).length === 0) {
+    if (
+      Object.keys(node.properties).length === 0 &&
+      !DT_FORMATS.includes(format)
+    ) {
       throw new SchemaError(
         'Record fields must have one or more child fields',
         node
@@ -218,7 +224,7 @@ converter._bigQueryType = (node, type) => {
   // handle string formats
   let actualType = type
   const format = node.format
-  if ((type === 'string' || type === 'object') && ['date-time', 'date', 'time'].includes(format)) {
+  if ((type === 'string' || type === 'object') && DT_FORMATS.includes(format)) {
     actualType = format
   }
   const bqType = JSON_SCHEMA_TO_BIGQUERY_TYPE_DICT[actualType]

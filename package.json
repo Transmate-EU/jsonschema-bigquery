@@ -32,7 +32,6 @@
     "url": "http://www.thedumbterminal.co.uk"
   },
   "license": "MIT",
-  
   "homepage": "https://github.com/thedumbterminal/jsonschema-bigquery#readme",
   "devDependencies": {
     "eslint": "^8.5.0",

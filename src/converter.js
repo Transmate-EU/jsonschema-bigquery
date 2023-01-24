@@ -218,7 +218,7 @@ converter._bigQueryType = (node, type) => {
   // handle string formats
   let actualType = type
   const format = node.format
-  if (type === 'string' && ['date-time', 'date', 'time'].includes(format)) {
+  if ((type === 'string' || type === 'object') && ['date-time', 'date', 'time'].includes(format)) {
     actualType = format
   }
   const bqType = JSON_SCHEMA_TO_BIGQUERY_TYPE_DICT[actualType]

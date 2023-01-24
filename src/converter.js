@@ -185,7 +185,7 @@ converter._object = (name, node, mode) => {
       throw new SchemaError('No properties defined for object', node)
     }
     if (
-      Object.keys(node.properties).length === 0 &&
+      node.properties && Object.keys(node.properties).length === 0 &&
       !DT_FORMATS.includes(format)
     ) {
       throw new SchemaError(

@@ -181,11 +181,11 @@ converter._object = (name, node, mode) => {
       )
     }
     const format = node.format
-    if (!_.isPlainObject(node.properties) && !DT_FORMATS.includes(format)) {
+    if (!_.isPlainObject(node.properties)) {
       throw new SchemaError('No properties defined for object', node)
     }
     if (
-      node.properties && Object.keys(node.properties).length === 0 &&
+      Object.keys(node.properties).length === 0 &&
       !DT_FORMATS.includes(format)
     ) {
       throw new SchemaError(
@@ -238,7 +238,7 @@ converter._simple = (name, type, node, mode) => {
   if (type === 'array') {
     return converter._array(name, node)
   }
-  if (type === 'object') {
+  if (type === 'object' && !DT_FORMATS.includes(node.format)) {
     return converter._object(name, node, mode)
   }
 

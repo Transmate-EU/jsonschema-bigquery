@@ -1,6 +1,6 @@
 {
   "name": "@transmate-eu/jsonschema-bigquery",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "description": "Convert JSON schema to Google BigQuery schema",
   "main": "src/converter.js",
   "scripts": {
@@ -19,6 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Transmate-EU/jsonschema-bigquery.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "json",
